@@ -1,0 +1,49 @@
+{% extends 'anonymous_base.html' %}
+{% load static %}{% load i18n %}
+{% load bootstrap4 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+
+
+{% block content %}
+<!-- Hero Start -->
+<section class="bg-home d-flex align-items-center">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-7 col-md-6">
+                        {% blocktrans %}
+                            <h1>A <span class="text-primary">new vision</span> for the protection of amphibians and reptiles around the world.</h1>
+                        {% endblocktrans %}
+                        <div class="mr-lg-5">
+                            <img src="{% static 'images/toad.jpeg' %}" class="img-fluid d-block mx-auto" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                        <div class="card login_page shadow rounded border-0">
+                            <div class="card-body">
+                                <h4 class="card-title text-center">{% trans "Signup" %}</h4>
+                                <form class="login-form mt-4" method="POST" action="{% url 'signup' %}">
+                                    {% csrf_token %}
+                                    {% bootstrap_messages %}
+                                    {% bootstrap_form form %}
+                                        <div class="col-md-12">
+                                            {% buttons %}
+                                            <button class="btn btn-primary btn-block">{% trans "Register" %}</button>
+                                            {% endbuttons %}
+                                        </div>
+                                        <div class="mx-auto">
+                                            <p class="mb-0 mt-3"><small class="text-dark mr-2">{% trans "Already have an account ?" %}</small> <a href="{% url 'login' %}" class="text-dark font-weight-bold">{% trans "Sign in" %}</a></p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> <!--end col-->
+                </div><!--end row-->
+            </div> <!--end container-->
+        </section><!--end section-->
+        <!-- Hero End -->
+{% endblock content %}

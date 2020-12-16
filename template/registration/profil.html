@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<section class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card public-profile border-0 rounded shadow" style="z-index: 1;">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-2 col-md-3 text-md-left text-center">
+                                        {% if profil.avatar %}
+                                            <img src="/media/{{ profil.avatar }}" class="avatar avatar-large rounded-circle shadow d-block mx-auto">
+                                        {% else %}
+                                            <img src="{% static 'images/client/05.jpg' %}" class="avatar avatar-large rounded-circle shadow d-block mx-auto" alt="">
+                                        {% endif %}
+                                    </div><!--end col-->
+
+                                    <div class="col-lg-10 col-md-9">
+                                        <div class="row align-items-end">
+                                            <div class="col-md-7 text-md-left text-center mt-4 mt-sm-0">
+                                                <h3 class="title mb-0">{{ profil.get_full_name }}</h3>
+                                                <small class="text-muted h6 mr-2">{{ profil.country.name }}</small>
+                                            </div><!--end col-->
+                                            <div class="col-md-5 text-md-right text-center">
+                                                <ul class="list-unstyled social-icon social mb-0 mt-4">
+                                                    {% if request.user.pk == profil.pk %}
+                                                    <li class="list-inline-item"><a href="{% url 'profil_update' profil.pk %}" class="rounded" data-toggle="tooltip" data-placement="bottom" title="Settings"><i data-feather="tool" class="fea icon-sm fea-social"></i></a></li>
+                                                    {% endif %}
+                                                </ul><!--end icon-->
+                                            </div><!--end col-->
+                                        </div><!--end row-->
+                                    </div><!--end col-->
+                                </div><!--end row-->
+                            </div>
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--ed container-->
+</section><!--end section-->
+        <!-- Profile Start -->
+<section class="section" style="padding: 0";>
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-8 col-md-7 col-12">
+                        <div class="border-bottom pb-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h5>{% trans "Personal Details" %} :</h5>
+                                    <div class="mt-4">
+                                        <div class="media align-items-center">
+                                            <i data-feather="mail" class="fea icon-ex-md text-muted mr-3"></i>
+                                            <div class="media-body">
+                                                <h6 class="text-primary mb-0">{% trans 'Email' %} :</h6>
+                                                <a href="javascript:void(0)" class="text-muted">{{ profil.email }}</a>
+                                            </div>
+                                        </div>
+                                        <div class="media align-items-center">
+                                            <i data-feather="phone" class="fea icon-ex-md text-muted mr-3"></i>
+                                            <div class="media-body">
+                                                <h6 class="text-primary mb-0">{% trans 'Phone' %} :</h6>
+                                                <a href="javascript:void(0)" class="text-muted">
+                                                    {% if profil.phone %}
+                                                        {{ profil.phone }}
+                                                    {% else %}
+                                                        {% ifequal request.user.pk profil.pk %}
+                                                            {% trans "Give your phone number to your collaborators to increase your collaboration." %}
+                                                        {% else %}
+                                                            {{ profil.firstname }} {% trans "did not give his number. Encourage him to do so to increase your collaboration!" %}
+                                                        {% endifequal %}
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+
+                                <div class="col-lg-6">
+                                    <h5>{% trans 'Member of' %} :</h5>
+                                    {% for association in profil.get_associations %}
+                                    <div class="media key-feature align-items-center p-3 rounded shadow mt-4">
+                                        {% if association.logo %}
+                                        <img src="{{ association.association.logo }}" class="avatar avatar-ex-sm" alt="">
+                                        {% endif %}
+                                        <div class="media-body content ml-3">
+                                            <h4 class="title mb-0">{{ association.name }}</h4>
+                                            <p class="text-muted mb-0">{% trans 'Based in' %} {{ association.country.name }}</p>
+                                            <p class="text-muted mb-0"><a href="{% url 'association_details' association.slug %}" class="text-primary">Show this association</a></p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+        </section><!--end section-->
+        <!-- Profile End -->
+{% endblock %}
