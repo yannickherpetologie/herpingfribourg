@@ -6,11 +6,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from users.views import ProfilView, ProfilEditView
-from herp.views import AmphibianListView, DetailsView, ReptilesListView
+from herp.views import AmphibianListView, DetailsView, ReptilesListView, SiteListView
 from .views import home
 
 urlpatterns = [
     path('', home, name="home"),
+    path('sites/', SiteListView.as_view(), name='site_list'),
     path('amphibiens/', AmphibianListView.as_view(), name="amphibian_list"),
     path('amphibiens/<slug:slug>', DetailsView.as_view(), name="amphibian_details"),
     path('reptiles/', ReptilesListView.as_view(), name="reptile_list"),

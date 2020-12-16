@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.79.0">
-    <title>Herping-Fribourg</title>
+    <title>Herping-Fribourg - {% block title %}{% endblock %}</title>
     
 
     <!-- Bootstrap core CSS -->
@@ -58,10 +58,7 @@
                 <a class="nav-link" href="{% url 'reptile_list' %}" title="Herping-Fribourg - les reptiles du canton de Fribourg">Reptiles</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Observations</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Évènements</a>
+                <a class="nav-link" href="{% url 'site_list' %}" title="Herping-Fribourg - Les sites d'inventaires à amphibiens et reptiles">Sites</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Contact</a>

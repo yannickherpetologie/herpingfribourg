@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}{{ herp.get_order_display }}{% endblock %}
+
 {% block content %}
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
   {% for herp in herps %}
@@ -9,7 +11,11 @@
                 <title>{{ herp.scientific_name }}</title>
                 <image xlink:href="{{ herp.image.url }}/>
                 <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ herp.common_name }}</text></svg>
-            <img src="" class="bd-placeholder-img card-img-top" />
+              {% for image in herp.herpimage_set.all %}
+                {% if image.category == 'I' and forloop.first %}
+                    <img src="{{ MEDIA_URL }}{{ image }}" class="bd-placeholder-img card-img-top" />
+                {% endif %}
+              {% endfor %}
             <div class="card-body">
               <p class="card-text"><i>{{ herp.scientific_name }}</i> ({{ herp.author }})</p>
               <div class="d-flex justify-content-between align-items-center">

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Sites{% endblock %}
+
+{% block content %}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for site in sites %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <svg  width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title>{{ site.object }}</title>
+            <div class="card-body">
+              <p class="card-text">{{ site.commune }} à {{ site.district }})</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a href="#" class="btn btn-sm btn-outline-secondary">Détails</a>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Ajouter une observation</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  {% endfor %}
+</div>
+{% endblock %}

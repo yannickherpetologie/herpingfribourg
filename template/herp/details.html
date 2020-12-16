@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}{{ herp.get_order_display }} de Fribourg - {{ herp.scientific_name }}{% endblock %}
+
 {% block content %}
 <div class="row align-items-start">
     <div class="col">
@@ -9,7 +11,7 @@
      <div class="col">
          {% for image in herp.herpimage_set.all %}
             {% if image.category == 'I' and forloop.first %}
-                <img src="{{ image.media }}" title="Herping-Fribourg - {{ herp.get_order_display }} de Fribourg - {{ herp.scientific_name }} {{ herp.common_name }}" />
+                <img src="{{ MEDIA_URL }}{{ image }}" title="Herping-Fribourg - {{ herp.get_order_display }} de Fribourg - {{ herp.scientific_name }} {{ herp.common_name }}" />
             {% endif %}
          {% endfor %}
     </div>
