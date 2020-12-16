@@ -7,17 +7,14 @@
   {% for herp in herps %}
         <div class="col">
           <div class="card shadow-sm">
-            <svg  width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <title>{{ herp.scientific_name }}</title>
                 {% for image in herp.herpimage_set.all %}
                     {% if image.category == 'I' and forloop.first %}
-                        <img src="{{ MEDIA_URL }}{{ image }}" class="bd-placeholder-img card-img-top" />
+                        <img src="{{ MEDIA_URL }}{{ image }}" class="card-img-top img-fluid rounded" title="Herping-Fribourg - {{ herp.get_order_display }} de Fribourg - {{ herp.scientific_name }} {{ herp.common_name }}" />
                     {% endif %}
                   {% endfor %}
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ herp.common_name }}</text></svg>
-            <img src="" class="bd-placeholder-img card-img-top" />
             <div class="card-body">
-              <p class="card-text"><i>{{ herp.scientific_name }}</i> ({{ herp.author }})</p>
+              <p class="card-text"><i>{{ herp.scientific_name }}</i> ({{ herp.author }})<br />
+              {{ herp.common_name }}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                     {% if herp.order == 'A' %}
@@ -28,7 +25,6 @@
                         <button type="button" class="btn btn-sm btn-outline-secondary">Ajouter une observation</button>
                     {% endif %}
                 </div>
-                <small class="text-muted">Mise à jour: 9 mins</small>
               </div>
             </div>
           </div>

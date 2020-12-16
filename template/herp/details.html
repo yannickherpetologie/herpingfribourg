@@ -7,11 +7,13 @@
     <div class="col">
         <h1 class="fs-2"><i>{{ herp.scientific_name }}</i> <small class="fs-6">{{ herp.author }}</small></h1>
         {{ herp.common_name }}
+
+        {{ herp.description|safe|linebreaks }}
     </div>
      <div class="col">
          {% for image in herp.herpimage_set.all %}
             {% if image.category == 'I' and forloop.first %}
-                <img src="{{ MEDIA_URL }}{{ image }}" title="Herping-Fribourg - {{ herp.get_order_display }} de Fribourg - {{ herp.scientific_name }} {{ herp.common_name }}" />
+                <img src="{{ MEDIA_URL }}{{ image }}" class="img-fluid rounded" title="Herping-Fribourg - {{ herp.get_order_display }} de Fribourg - {{ herp.scientific_name }} {{ herp.common_name }}" />
             {% endif %}
          {% endfor %}
     </div>
@@ -27,17 +29,13 @@
         </dl>
     </div>
 </div>
-<div class="row">
-    <div class="col">
-        {{ herp.description|safe|linebreaks }}
-    </div>
-</div>
+<!--
 <div class="row">
     <h3 class="fs-5">Médias</h3>
     <div class="col"></div>
     <div class="col"></div>
     <div class="col"></div>
-</div><!--
+</div>
 <div class="row">
     <div class="col">
         <h3 class="fs-5">Dernières observations</h3>

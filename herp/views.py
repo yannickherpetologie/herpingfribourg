@@ -5,7 +5,7 @@ from .models import Herp, Site
 
 class SiteListView(ListView):
     model = Site
-    queryset = Site.objects.order_by('object', 'district', 'commune')
+    queryset = Site.objects.order_by('district', 'commune')
     template_name = 'herp/site_list.html'
     context_object_name = 'sites'
 
