@@ -1,6 +1,17 @@
 from django.contrib import admin
 
-from .models import Herp, HerpImage, Observation
+from .models import Herp, HerpImage, Observation, Site, Population
+
+class SiteAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['object', 'name']}),
+        ('Localisation', {'fields': ['commune', 'district', 'slug', 'gps', 'altitude', 'surface']})
+    ]
+
+    prepopulated_fields = {'slug': ('object','district','commune'), }
+    list_display = ('object', 'name', 'commune', 'district')
+
+admin.site.register(Site, SiteAdmin)
 
 class HerpImageInline(admin.StackedInline):
     model = HerpImage
@@ -22,13 +33,24 @@ class HerpAdmin(admin.ModelAdmin):
 
 admin.site.register(Herp, HerpAdmin)
 
+
+class PopulationAdmin(admin.ModelAdmin):
+    fields = [
+        'site', 'herp', 'population_size'
+    ]
+    list_display = ('site', 'herp', 'population_size')
+    search_filter = ['site',]
+
+admin.site.register(Population, PopulationAdmin)
+
+
 class ObservationAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['observer', 'date']}),
-        ('Espèce', {'fields': ['herp', 'details', 'image']}),
+        ('Espèce', {'fields': ['herp', 'quantity', 'area', 'image']}),
     ]
 
-    list_display = ('herp', 'observer', 'date')
-    search_fields = ['herp', 'observer', 'date']
+    list_display = ('herp', 'observer', 'date', 'area')
+    search_fields = ['herp', 'observer', 'date', 'area']
 
 admin.site.register(Observation, ObservationAdmin)

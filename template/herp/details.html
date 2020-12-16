@@ -1,7 +1,70 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3">
-
+<div class="row align-items-start">
+    <div class="col">
+        <h1 class="fs-2"><i>{{ herp.scientific_name }}</i> <small class="fs-6">{{ herp.author }}</small></h1>
+        {{ herp.common_name }}
+    </div>
+     <div class="col">
+         {% for image in herp.herpimage_set.all %}
+            {% if image.category == 'I' and forloop.first %}
+                <img src="{{ image.media }}" title="Herping-Fribourg - {{ herp.get_order_display }} de Fribourg - {{ herp.scientific_name }} {{ herp.common_name }}" />
+            {% endif %}
+         {% endfor %}
+    </div>
 </div>
+<div class="row justify-content-between">
+    <div class="col-6"></div>
+    <div class="col-6">
+        <dl class="row">
+            <dt class="col-sm-3">Status :</dt>
+            <dd class="col-sm-9">{{ herp.get_iucn_status_display }}</dd>
+            <dt class="col-sm-3">Présence :</dt>
+            <dd class="col-sm-9">FR 645, FR 612, Etang du Jura</dd>
+        </dl>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        {{ herp.description|safe|linebreaks }}
+    </div>
+</div>
+<div class="row">
+    <h3 class="fs-5">Médias</h3>
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col"></div>
+</div><!--
+<div class="row">
+    <div class="col">
+        <h3 class="fs-5">Dernières observations</h3>
+        <div class="table-responsive-sm">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                      <th scope="col">Date</th>
+                      <th scope="col">Quantité</th>
+                      <th scope="col">Lieu</th>
+                        <th scope="col">Méthode utilisée</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                        <td>16.12.2020</td>
+                        <td>3.2.x</td>
+                        <td>Ruisseau de la Gruyère</td>
+                        <td>À vue</td>
+                    </tr>
+                  </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col">
+        <h3 class="fs-5">Ajouter une observation</h3>
+        <form>
+            <button type="submit" class="btn btn-block btn-sm btn-success">Valider</button>
+        </form>
+    </div>
+</div>-->
 {% endblock %}
