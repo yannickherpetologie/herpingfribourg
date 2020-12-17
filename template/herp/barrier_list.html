@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Barrières à amphibien{% endblock %}
+
+{% block content %}
+<div class="row">
+    <p>Chaque année, entre février et avril, le service des forêts et de la nature (SFN), en collaboration avec le KARCH
+        installe des barrières à amphibiens le long des routes connues pour avoir de fortes migrations.
+        Ce dispositif est mis en place pour répondre aux problématiques de fragmentations des territoires.</p>
+    <p>Il nécessite des bénévoles qui, chaque matin, vont récolter les amphibiens pour les recenser et les faire traverser. À la suite de quoi le
+        SFN pourra analyser les récoltes et adapter les barrières en conséquence.</p>
+    <div class="table-responsive-sm">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th scope="col">Site</th>
+                  <th scope="col">Route</th>
+                    <th scope="col">Longueur approx.</th>
+                  <th scope="col">Nb de sceaux</th>
+                    <th scope="col">Date de pose</th>
+                    <th scope="col">Dernier contrôle</th>
+                    <th scope="col">Inscription</th>
+                </tr>
+              </thead>
+            <tbody>
+            {% for barrier in barriers %}
+                <tr>
+                  <th>{{ barrier.location }}</th>
+                  <td>{{ barrier.rte }}</td>
+                    <td>{{ barrier.t_length }}</td>
+                    <td>{{ barrier.nb_trap }}</td>
+                  <td>{% if not barrier.date_begin %}Non défini actuellement{% else %}{{ barrier.date_begin }}{% endif %}</td>
+                  <td>{% if not barrier.date_end %}Non défini actuellement{% else %}{{ barrier.date_end }}{% endif %}</td>
+                    <td>
+                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#inscriptionBenevole">
+                          S'inscrire comme bénévole
+                        </button></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="inscriptionBenevole" tabindex="-1" aria-labelledby="inscriptionBenevole" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Inscription bénévole</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <p>Le présent formulaire envoie un mail au service du SFN avec vos coordonnées pour l'inscription à la barrière de votre choix.</p>
+          <p>Ces derniers vous recontacteront dans les plus brefs délais. <i>Herping-Fribourg</i> met uniquement à la disposition de ses visiteurs la possibilité
+          de participer aux actions de sauvetage des amphibiens et n'enregistre d'aucune manière vos coordonnées.</p>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="barrier" class="form-label">Barrière</label>
+                <select id="barrier" class="form-select" aria-label="Default select example">
+                  <option selected>Sélectionner une barrière</option>
+                    {% for barrier in barriers %}
+                        <option value="{{ barrier.location }}-{{ barrier.rte }}">{{ barrier.location }} - {{ barrier.rte }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="lastname" class="form-label">Nom de famille</label>
+                <input type="text" class="form-control" id="lastname" aria-describedby="lastname">
+                <div id="emailHelp" class="form-text"></div>
+              </div>
+              <div class="mb-3">
+                <label for="firstname" class="form-label">Prénom</label>
+                <input type="text" class="form-control" id="firstname" aria-describedby="firstname">
+                <div id="2firstname" class="form-text"></div>
+              </div>
+                <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" aria-describedby="email">
+                <div id="2email" class="form-text"></div>
+              </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Téléphone</label>
+                    <input type="phone" class="form-control" id="phone" aria-describedby="phone">
+                    <div id="2phone" class="form-text"></div>
+                  </div>
+            <input type="submit" class="btn btn-success btn-block" value="Je m'inscris et envoi mes coordonnées au SFN"></input>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

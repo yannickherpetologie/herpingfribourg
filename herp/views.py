@@ -1,11 +1,18 @@
 from django.views.generic import ListView, DetailView
 
-from .models import Herp, Site
+from .models import Herp, SiteReproduction, Barrier, Stream
+
+
+class BarrierMigrationListView(ListView):
+    model = Barrier
+    queryset = Barrier.objects.all()
+    template_name = 'herp/barrier_list.html'
+    context_object_name = 'barriers'
 
 
 class SiteListView(ListView):
-    model = Site
-    queryset = Site.objects.order_by('district', 'commune')
+    model = SiteReproduction
+    queryset = SiteReproduction.objects.order_by('district', 'commune')
     template_name = 'herp/site_list.html'
     context_object_name = 'sites'
 
@@ -25,3 +32,9 @@ class ReptilesListView(ListView):
     queryset = Herp.objects.filter(order='R').order_by('scientific_name')
     template_name = 'herp/list.html'
     context_object_name = 'herps'
+
+class StreamListView(ListView):
+    model = Stream
+    queryset = Stream.objects.order_by('location', 'district')
+    template_name = 'herp/salamander_stream_list.html'
+    context_object_name = 'streams'

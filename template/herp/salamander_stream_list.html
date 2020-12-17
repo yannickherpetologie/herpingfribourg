@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Sites{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="table-responsive-sm">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th scope="col">Ruisseau</th>
+                  <th scope="col">Localité</th>
+                    <th scope="col">District</th>
+                  <th scope="col">Probabilité de présence</th>
+                    <th scope="col">Taille de population</th>
+                </tr>
+              </thead>
+            <tbody>
+            {% for stream in streams %}
+                <tr>
+                  <th>{{ stream.name }}</th>
+                  <td>{{ stream.location }}</td>
+                    <td>{{ stream.district }}</td>
+                  <td>{{ stream.get_probability_display }} </td>
+                  <td>{{ stream.get_population_size_display }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

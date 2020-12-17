@@ -51,14 +51,20 @@
               <li class="nav-item active">
                 <a class="nav-link" aria-current="page" href="{% url 'home' %}" title="Herping-Fribourg - les amphibiens et reptiles du canton de Fribourg">Accueil</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'amphibian_list' %}" title="Herping-Fribourg - les amphibiens du canton de Fribourg">Amphibiens</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Amphibiens
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{% url 'amphibian_list' %}" title="Herping-Fribourg - les amphibiens du canton de Fribourg">Amphibiens</a></li>
+                  <li><a class="dropdown-item" href="{% url 'amphibian_site_reproduction' %}" title="Herping-Fribourg - les sites de reproduction des amphibiens du canton de Fribourg">Site de reproductions</a></li>
+                  <li><a class="dropdown-item" href="{% url 'amphibien_barrier_migration' %}" title="Herping-Fribourg - les barrières des amphibiens du canton de Fribourg">Barrières de migrations</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{% url 'amphibien_salamander_stream' %}" title="Herping-Fribourg - Les populations de salamandre tâchetée de Fribourg">Populations de Salamandre tâchetée</a></li>
+                </ul>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'reptile_list' %}" title="Herping-Fribourg - les reptiles du canton de Fribourg">Reptiles</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'site_list' %}" title="Herping-Fribourg - Les sites d'inventaires à amphibiens et reptiles">Sites</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'about' %}" title="Herping-Fribourg - À propos">À propos</a>
@@ -70,21 +76,21 @@
 </header>
 
 <main>
+    <!--
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">Soutenez-nous</h1>
+            <h1 class="fw-light">Soutenez Herping-Fribourg</h1>
             <p class="lead text-muted">Pour la découverte et la protection des amphibiens et reptiles du canton de Fribourg.</p>
             <p>
             <a href="#" class="btn btn-warning my-2">Je soutiens et fais un don</a>
             </p>
         </div>
         </div>
-    </section>
+    </section>-->
 
   <div class="album py-5 bg-light">
-    <div class="container">
-
+    <div class="container py-5">
       {% block content %}{% endblock %}
     </div>
   </div>
