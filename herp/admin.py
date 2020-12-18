@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from .models import Herp, HerpImage, Observation, SiteReproduction, PopulationSiteReproduction, Barrier, Stream
+from .models import Herp, HerpMedia, ReproductionSite, Population, Barrier, Stream
 
-class HerpImageInline(admin.StackedInline):
-    model = HerpImage
+class HerpMediaInline(admin.StackedInline):
+    model = HerpMedia
     extra = 1
 
 class HerpAdmin(admin.ModelAdmin):
@@ -14,7 +14,7 @@ class HerpAdmin(admin.ModelAdmin):
     ]
 
     prepopulated_fields = {'slug': ('scientific_name',), }
-    inlines = [HerpImageInline]
+    inlines = [HerpMediaInline]
 
     list_display = ('scientific_name', 'common_name', 'order', 'iucn_status')
     search_fields = ['scientific_name', 'common_name', 'order']
@@ -22,16 +22,16 @@ class HerpAdmin(admin.ModelAdmin):
 
 admin.site.register(Herp, HerpAdmin)
 
-class SiteAdmin(admin.ModelAdmin):
+class ReproductionSiteAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['object', 'name', 'type_object']}),
         ('Localisation', {'fields': ['commune', 'district', 'slug', 'gps', 'altitude', 'surface', 'surface_b']})
     ]
 
-    prepopulated_fields = {'slug': ('object','district','commune'), }
+    prepopulated_fields = {'slug': ('object', 'district', 'commune'), }
     list_display = ('object', 'name', 'commune', 'district')
 
-admin.site.register(SiteReproduction, SiteAdmin)
+admin.site.register(ReproductionSite, ReproductionSiteAdmin)
 
 class BarrierAdmin(admin.ModelAdmin):
     fields = ['location', 'rte', 'slug', 't_length', 'nb_trap', 'date_begin', 'date_end']
@@ -48,7 +48,7 @@ class PopulationAdmin(admin.ModelAdmin):
     list_display = ('site', 'herp', 'population_size')
     search_filter = ['site',]
 
-admin.site.register(PopulationSiteReproduction, PopulationAdmin)
+admin.site.register(Population, PopulationAdmin)
 
 class StreamAdmin(admin.ModelAdmin):
     fields = ['name', 'location', 'district', 'population_size']
@@ -56,16 +56,3 @@ class StreamAdmin(admin.ModelAdmin):
     list_display = ('name', 'location', 'district', 'population_size')
 
 admin.site.register(Stream, StreamAdmin)
-
-"""
-class ObservationAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'fields': ['observer', 'date']}),
-        ('Espèce', {'fields': ['herp', 'quantity', 'area', 'image']}),
-    ]
-
-    list_display = ('herp', 'observer', 'date', 'area')
-    search_fields = ['herp', 'observer', 'date', 'area']
-
-admin.site.register(Observation, ObservationAdmin)
-"""

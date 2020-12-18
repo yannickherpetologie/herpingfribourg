@@ -1,6 +1,4 @@
 {% extends 'base.html' %}
-
-{% load bootstrap4 %}
 {% load i18n %}
 
 {% block content %}
@@ -12,13 +10,9 @@
                             <div class="row">
                                 <form action="{% url 'profil_update' request.user.pk %}" method="POST" enctype="multipart/form-data">
                                     {% csrf_token %}
-                                    {% bootstrap_messages %}
 
-                                    {% bootstrap_form form %}
                                     <div class="col-md-12">
-                                        {% buttons %}
                                             <button class="btn btn-soft-primary btn-block">{% trans "Sauvegarder" %}</button>
-                                        {% endbuttons %}
                                     </div>
                                     </div>
                                 </form>

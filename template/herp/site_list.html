@@ -25,7 +25,13 @@
                     <td>{{ site.district }}</td>
                   <td>{{ site.commune }} </td>
                   <td>{{ site.gps }}</td>
-                    <td></td>
+                    <td>
+                        {% for herp in site.population_set.herp.all %}
+
+                        <i>{{ herp.scientific_name }}</i>{% if not forloop.last %}, {% endif %}
+
+                        {% endfor %}
+                    </td>
                     <td></td>
                 </tr>
             {% endfor %}

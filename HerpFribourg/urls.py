@@ -7,11 +7,12 @@ from django.conf.urls.static import static
 
 from users.views import ProfilView, ProfilEditView
 from herp.views import AmphibianListView, DetailsView, ReptilesListView, SiteListView, BarrierMigrationListView, StreamListView
-from .views import home, about
+from .views import home, about, legislation
 
 urlpatterns = [
     path('', home, name="home"),
     path('a-propos/', about, name="about"),
+    path('legislation/', legislation, name="legislation"),
     path('amphibiens/sites-de-reproduction/', SiteListView.as_view(), name='amphibian_site_reproduction'),
     path('amphibiens/barrieres-migration/', BarrierMigrationListView.as_view(), name='amphibien_barrier_migration'),
     path('amphibiens/populations-salamandre-tachetee/', StreamListView.as_view(), name='amphibien_salamander_stream'),

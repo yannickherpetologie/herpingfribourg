@@ -11,7 +11,7 @@
         {{ herp.description|safe|linebreaks }}
     </div>
      <div class="col">
-         {% for image in herp.herpimage_set.all %}
+         {% for image in herp.herpmedia_set.all %}
             {% if image.category == 'I' and forloop.first %}
                 <img src="{{ MEDIA_URL }}{{ image }}" class="img-fluid rounded" title="Herping-Fribourg - {{ herp.get_order_display }} de Fribourg - {{ herp.scientific_name }} {{ herp.common_name }}" />
             {% endif %}
@@ -24,13 +24,23 @@
         <dl class="row">
             <dt class="col-sm-3">Status :</dt>
             <dd class="col-sm-9">{{ herp.get_iucn_status_display }}</dd>
-            <dt class="col-sm-3">Présence :</dt>
-            <dd class="col-sm-9">
-                {% for site in herp.site_set.all  %}
-                    {{ site.object }} {{ site.name }} ({{ site.commune }}- {{ site.district }}){% if not forloop.last %}, {% endif %}
-                {% endfor %}
-            </dd>
+            <dt class="col-sm-3"></dt>
         </dl>
+         <table class="table table-borderless table-sm">
+                     <thead>
+                        <tr>
+                          <th scope="col">Site</th>
+                          <th scope="col">Taille de la population</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for site in herp.reproductionsite_set.all %}
+                        <tr>
+                          <td>{{ site }}</td>
+                           <td>{{ site.population }}</td>
+                        </tr>
+                     {% endfor %}
+                </table>
     </div>
 </div>
 <!--

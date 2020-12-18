@@ -9,3 +9,6 @@ def home(request):
 
 def about(request):
     return render(request, 'herpfribourg/a-propos.html')
+
+def legislation(request):
+    return render(request, 'herpfribourg/legislation.html')

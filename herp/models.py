@@ -39,7 +39,7 @@ class Herp(models.Model):
 """
  Amphibiens
 """
-class SiteReproduction(models.Model):
+class ReproductionSite(models.Model):
     site_type = (
         ('P', 'Plan d\'eau'),
         ('H', 'Zone humide'),
@@ -55,7 +55,7 @@ class SiteReproduction(models.Model):
     surface = models.FloatField()
     surface_b = models.FloatField(blank=True, default=0)
     slug = models.SlugField(unique=True)
-    population = models.ManyToManyField(Herp, through='PopulationSiteReproduction')
+    population = models.ManyToManyField(Herp, through='Population')
 
     class Meta:
         verbose_name = "Site de reproduction des amphibiens"
@@ -66,9 +66,9 @@ class SiteReproduction(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(f"{self.object}-{self.district}-{self.commune}")
-        super(SiteReproduction, self).save(*args, **kwargs)
+        super(ReproductionSite, self).save(*args, **kwargs)
 
-class PopulationSiteReproduction(models.Model):
+class Population(models.Model):
     """ Site de reproduction """
     size = (
         ('I', 'Inconnu'),
@@ -77,13 +77,13 @@ class PopulationSiteReproduction(models.Model):
         ('G', 'Grande'),
         ('T', 'Très grande')
     )
-    site = models.ForeignKey(SiteReproduction, on_delete=models.CASCADE, related_name='+')
+    site = models.ForeignKey(ReproductionSite, on_delete=models.CASCADE, related_name='+')
     herp = models.ForeignKey(Herp, on_delete=models.CASCADE, related_name='+')
     population_size = models.CharField(max_length=1, choices=size, default='I')
 
     class Meta:
-        verbose_name = "Population des amphibiens par site de reproduction"
-        verbose_name_plural = "Populations des amphibiens par site de reproduction"
+        verbose_name = "Population par site de reproduction"
+        verbose_name_plural = "Populations par site de reproduction"
 
 class Barrier(models.Model):
     """ Barrière """
@@ -112,12 +112,7 @@ class PopulationBarrier(models.Model):
     barrier = models.ForeignKey(Barrier, on_delete=models.CASCADE, related_name='+')
     herp = models.ForeignKey(Herp, on_delete=models.CASCADE, related_name='+')
 
-def user_directory_path(self):
-    pass
-def herp_directory_path(self):
-    pass
-
-class HerpImage(models.Model):
+class HerpMedia(models.Model):
     categories = (
         ('I', 'Image'),
         ('M', 'MP3'),
@@ -130,17 +125,6 @@ class HerpImage(models.Model):
 
     def __str__(self):
         return f"{self.media}"
-
-class Observation(models.Model):
-    herp = models.ForeignKey(Herp, on_delete=models.PROTECT)
-    observer = models.ForeignKey(to='users.User', on_delete=models.PROTECT, related_name='observer')
-    date = models.DateField()
-    quantity = models.CharField(max_length=12)
-    area = models.CharField(max_length=64)
-    image = models.ImageField(upload_to="uploads/species/observations/", blank=True)
-
-    def __str__(self):
-        return self.pk
 
 class Stream(models.Model):
     size = (

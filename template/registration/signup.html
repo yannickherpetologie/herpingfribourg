@@ -1,11 +1,5 @@
-{% extends 'anonymous_base.html' %}
+{% extends 'base.html' %}
 {% load static %}{% load i18n %}
-{% load bootstrap4 %}
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
-
-{# Display django.contrib.messages as Bootstrap alerts #}
 
 
 {% block content %}
@@ -27,12 +21,8 @@
                                 <h4 class="card-title text-center">{% trans "Signup" %}</h4>
                                 <form class="login-form mt-4" method="POST" action="{% url 'signup' %}">
                                     {% csrf_token %}
-                                    {% bootstrap_messages %}
-                                    {% bootstrap_form form %}
                                         <div class="col-md-12">
-                                            {% buttons %}
                                             <button class="btn btn-primary btn-block">{% trans "Register" %}</button>
-                                            {% endbuttons %}
                                         </div>
                                         <div class="mx-auto">
                                             <p class="mb-0 mt-3"><small class="text-dark mr-2">{% trans "Already have an account ?" %}</small> <a href="{% url 'login' %}" class="text-dark font-weight-bold">{% trans "Sign in" %}</a></p>

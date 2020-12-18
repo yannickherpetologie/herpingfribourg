@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView
 
-from .models import Herp, SiteReproduction, Barrier, Stream
+from .models import Herp, ReproductionSite, Barrier, Stream
 
 
 class BarrierMigrationListView(ListView):
@@ -11,8 +11,8 @@ class BarrierMigrationListView(ListView):
 
 
 class SiteListView(ListView):
-    model = SiteReproduction
-    queryset = SiteReproduction.objects.order_by('district', 'commune')
+    model = ReproductionSite
+    queryset = ReproductionSite.objects.order_by('district', 'commune')
     template_name = 'herp/site_list.html'
     context_object_name = 'sites'
 

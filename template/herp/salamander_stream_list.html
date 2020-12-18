@@ -22,7 +22,13 @@
                   <td>{{ stream.location }}</td>
                     <td>{{ stream.district }}</td>
                   <td>{{ stream.get_probability_display }} </td>
-                  <td>{{ stream.get_population_size_display }}</td>
+                  <td>
+                      {% if stream.get_probability_display == 'I' %}
+                        -
+                      {% else %}
+                        {{ stream.get_population_size_display }}
+                      {% endif %}
+                  </td>
                 </tr>
             {% endfor %}
             </tbody>

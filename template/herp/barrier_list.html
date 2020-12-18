@@ -8,7 +8,8 @@
         installe des barrières à amphibiens le long des routes connues pour avoir de fortes migrations.
         Ce dispositif est mis en place pour répondre aux problématiques de fragmentations des territoires.</p>
     <p>Il nécessite des bénévoles qui, chaque matin, vont récolter les amphibiens pour les recenser et les faire traverser. À la suite de quoi le
-        SFN pourra analyser les récoltes et adapter les barrières en conséquence.</p>
+        SFN pourra analyser les récoltes et adapter les barrières en conséquence. Pour vous inscrire, envoyez un <a href="mailto:sfn@fr.ch" title="S'inscrire comme Bénévole">e-mail au SFN</a>.</p>
+    <p>À l'heure actuelle, il existe {{ barriers.count }} barrières dans tout le canton de Fribourg et toutes ont besoin de bénévoles.</p>
     <div class="table-responsive-sm">
         <table class="table table-striped">
             <thead>
@@ -19,7 +20,7 @@
                   <th scope="col">Nb de sceaux</th>
                     <th scope="col">Date de pose</th>
                     <th scope="col">Dernier contrôle</th>
-                    <th scope="col">Inscription</th>
+                    <!--<th scope="col">Inscription</th>-->
                 </tr>
               </thead>
             <tbody>
@@ -31,10 +32,10 @@
                     <td>{{ barrier.nb_trap }}</td>
                   <td>{% if not barrier.date_begin %}Non défini actuellement{% else %}{{ barrier.date_begin }}{% endif %}</td>
                   <td>{% if not barrier.date_end %}Non défini actuellement{% else %}{{ barrier.date_end }}{% endif %}</td>
-                    <td>
+                    <!--<td>
                         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#inscriptionBenevole">
                           S'inscrire comme bénévole
-                        </button></td>
+                        </button></td>-->
                 </tr>
             {% endfor %}
             </tbody>

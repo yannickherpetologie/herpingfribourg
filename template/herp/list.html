@@ -7,7 +7,7 @@
   {% for herp in herps %}
         <div class="col">
           <div class="card shadow-sm">
-                {% for image in herp.herpimage_set.all %}
+                {% for image in herp.herpmedia_set.all %}
                     {% if image.category == 'I' and forloop.first %}
                         <img src="{{ MEDIA_URL }}{{ image }}" class="card-img-top img-fluid rounded" title="Herping-Fribourg - {{ herp.get_order_display }} de Fribourg - {{ herp.scientific_name }} {{ herp.common_name }}" />
                     {% endif %}
@@ -19,10 +19,10 @@
                 <div class="btn-group">
                     {% if herp.order == 'A' %}
                         <a href="{% url 'amphibian_details' herp.slug %}" class="btn btn-sm btn-outline-secondary">Détails</a>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Ajouter une observation</button>
+                        <!--<button type="button" class="btn btn-sm btn-outline-secondary">Ajouter une observation</button>-->
                     {% else %}
                      <a href="{% url 'reptile_details' herp.slug %}" class="btn btn-sm btn-outline-secondary">Détails</a>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Ajouter une observation</button>
+                        <!--<button type="button" class="btn btn-sm btn-outline-secondary">Ajouter une observation</button>-->
                     {% endif %}
                 </div>
               </div>
